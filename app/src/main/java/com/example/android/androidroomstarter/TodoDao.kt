@@ -5,7 +5,7 @@ import com.example.android.androidroomstarter.entities.Task
 
 @Dao
 interface TodoDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTask(task: Task)
 
     @Query("SELECT * FROM Task")

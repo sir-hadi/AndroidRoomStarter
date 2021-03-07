@@ -20,7 +20,7 @@ abstract class TodoDatabase : RoomDatabase() {
                     context.applicationContext,
                     TodoDatabase::class.java,
                     "todo.db"
-                ).build().also {
+                ).allowMainThreadQueries().build().also {
                     INSTANCE = it
                 }
             }
