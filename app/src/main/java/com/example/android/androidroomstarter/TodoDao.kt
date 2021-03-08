@@ -11,6 +11,14 @@ interface TodoDao {
     @Query("SELECT * FROM Task")
     fun getAll(): List<Task>
 
+    @Query("SELECT MAX(id) FROM Task")
+    fun getLastId(): Int
+
     @Delete
     fun delete(task: Task)
+
+    @Query("UPDATE Task SET done = :done WHERE taskName = :taskName")
+    fun updateDone(taskName: String, done: Boolean)
+
+
 }
