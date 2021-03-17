@@ -1,6 +1,7 @@
 package com.example.android.androidroomstarter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
+import com.example.android.androidroomstarter.entities.ItemDataHolder
 import kotlinx.android.synthetic.main.card_item.view.*
 
 
@@ -22,8 +23,10 @@ class TodoAdapter(private val exampleList: List<ItemDataHolder>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         context = parent.context
         dao = TodoDatabase.getInstance(context).todoDao()
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_item,
-                parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(
+            R.layout.card_item,
+            parent, false
+        )
         return ItemViewHolder(itemView)
     }
 
@@ -33,10 +36,12 @@ class TodoAdapter(private val exampleList: List<ItemDataHolder>) :
         holder.imageView.setImageResource(currentItem.imageResource)
         holder.textView.text = currentItem.text
 //        holder.checkBox.isChecked = currentItem.checkStatus
-        holder.checkBox.setChecked(currentItem.checkStatus)
+        holder.checkBox.setTag(dao.isCheck(currentItem.text))
+        holder.checkBox.setChecked(dao.isCheck(currentItem.text))
 
-        holder.checkBox.setOnCheckedChangeListener { compoundButton, b ->
-            dao.updateDone(currentItem.text,b)
+        holder.checkBox.setOnClickListener {
+            val b: Boolean = holder.checkBox.isChecked
+            dao.updateDone(currentItem.text, b)
             Log.e("onChecked", "Boom")
         }
     }

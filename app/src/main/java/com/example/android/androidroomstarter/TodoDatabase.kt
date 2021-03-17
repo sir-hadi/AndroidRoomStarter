@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.android.androidroomstarter.entities.ItemDataHolder
 import com.example.android.androidroomstarter.entities.Task
 
-@Database(entities = arrayOf(Task::class), version = 1)
+@Database(entities = arrayOf(ItemDataHolder::class), version = 1)
 abstract class TodoDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 
